@@ -14,7 +14,7 @@ const getFilePath = {
 const promptForFilePath = () => {
     return inquirer.prompt(getFilePath)
         .then(answers => {
-            const filePath = path.resolve(__dirname, answers.filePath);
+            const filePath = path.resolve(process.cwd(), answers.filePath);
             if (!fs.existsSync(filePath)) {
                 throw new Error(`Cannot find ${answers.filePath}`);
             }
