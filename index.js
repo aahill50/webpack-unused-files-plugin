@@ -13,7 +13,7 @@ const defaults = {
 };
 
 const reduceFilesIntoObj = (obj, file) => {
-    obj[path.resolve(__dirname, file)] = true;
+    obj[path.resolve(process.cwd(), file)] = true;
     return obj;
 };
 
