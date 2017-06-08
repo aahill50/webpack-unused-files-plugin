@@ -18,7 +18,7 @@ const reduceFilesIntoObj = (obj, file) => {
 };
 
 const  writeArrayToFile = (fileName, arr) => {
-    fs.writeFileSync(path.resolve(process.cwd(), filename), JSON.stringify(arr, null, 2));
+    fs.writeFileSync(path.resolve(process.cwd(), fileName), JSON.stringify(arr, null, 2));
 };
 
 class WebpackUnusedFilesPlugin {
