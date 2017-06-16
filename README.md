@@ -21,7 +21,7 @@ npm install webpack-unused-files-plugin --save-dev
 To generate the list of unused files, require this package in your webpack config and add an instance of it to the plugins array. 
 
 This plugin takes 4 options, see the comments in the example below:
-
+(See [npm-glob](https://www.npmjs.com/package/glob) for details about glob options)
 ```js
 const WebpackUnusedFilesPlugin = require('webpack-unused-files-plugin');
 
@@ -32,11 +32,11 @@ module.exports = {
         // your plugins...,
         
         new WebpackUnusedFilesPlugin({
-            // A [https://www.npmjs.com/package/glob](glob) pattern to find all possible files you want to check
+            // A glob pattern to find all possible files you want to check
             // Defaults to '**/*.*' which will include ALL files (except those specifically ignored) 
             pattern: '**/*.*',
             
-            // A string or an array of strings of [https://www.npmjs.com/package/glob](glob) patterns
+            // A string or an array of strings of glob patterns
             // Each file found in this list will not be checked to see if it is used
             // Defaults to ['node_modules/**']
             ignore: ['node_modules/**'],
@@ -54,10 +54,10 @@ module.exports = {
 };
 ```
 
-#Script Usage
+## Script Usage
 In addition, this plugin contains a script that can be used to remove the unused files that were found
 
-Once the plugin has been added to your webpack config and the webpack process has been run, the list of unused files should have been generated (webpack-unused-files.json by default). Now you can run this script, which will prompt you for each file to be deleted. At any point you can choose to delete all remaining files or skip all remaining files
+Once the plugin has been added to your webpack config and the webpack process has been run, the list of unused files should have been generated (webpack-unused-files.json by default). Now you can run the rmUnusedFiles script, which will prompt you for each file to be deleted. At any point you can choose to delete all remaining files or skip all remaining files
 
 ```sh
 # Using yarn
@@ -66,3 +66,8 @@ yarn rmUnusedFiles
 # Using npm
 npm run rmUnusedFiles
 ```
+
+## Notes on Usage
+It's important to note that this plugin identifies files that are unused *according to your webpack process*. This means that any files used strictly server side or otherwise not bundled by webpack will be identified as unused if they match the glob search pattern.
+
+Also note that the rmUnusedFiles script will not remove any tests associated with deleted files, so you will have to manually clean up any specs for files that have been deleted.
