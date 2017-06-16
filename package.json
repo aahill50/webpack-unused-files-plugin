@@ -1,6 +1,6 @@
 {
   "name": "webpack-unused-files-plugin",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Find all files in your project that are not being used by webpack",
   "main": "index.js",
   "license": "MIT",
