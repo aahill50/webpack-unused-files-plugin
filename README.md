@@ -49,7 +49,7 @@ module.exports = {
             // Files that have been ignored will not show up here
             // Defaults to 'webpack-unchecked-files.json'
             uncheckedFileName: 'webpack-unchecked-files.json'
-        });
+        })
     ]
 };
 ```
