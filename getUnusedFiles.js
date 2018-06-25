@@ -1,7 +1,6 @@
 const fs = require('fs');
-const path = require('path');
 const glob = require('glob');
-const { FILE_PREFIX, FILE_NAMES } = require('./constants');
+const { FILE_NAMES } = require('./constants');
 const { filePath, reduceFilesIntoObj, withExt, writeArrayToFile } = require('./helpers');
 
 const getUnusedFiles = () => {

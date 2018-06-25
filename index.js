@@ -1,18 +1,9 @@
 'use strict';
 
-const os = require('os');
-const fs = require('fs');
-const path = require('path');
 const glob = require('glob');
 const { defaults } = require('./defaults');
-const { FILE_NAMES, FILE_PREFIX } = require('./constants');
-const {
-    filePath,
-    reduceFilesIntoObj,
-    rmUnusedPluginFiles,
-    withExt,
-    writeArrayToFile,
-} = require('./helpers');
+const { FILE_NAMES } = require('./constants');
+const { filePath, rmUnusedPluginFiles, withExt, writeArrayToFile } = require('./helpers');
 
 class WebpackUnusedFilesPlugin {
     constructor(options = {}) {
