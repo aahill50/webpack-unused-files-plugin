@@ -43,9 +43,6 @@ const outputDeleteResult = (...messages) => {
 
 const files = getUnusedFiles();
 
-// promptForFilePath()
-//     .then(filePath => {
-// const files = getUnusedFiles();
 const questions = files.map(file => {
     return {
         type: 'input',
@@ -136,5 +133,3 @@ promptForDeleteFile(0).then(() => {
         }
     });
 });
-// })
-// .catch(console.log);

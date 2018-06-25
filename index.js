@@ -14,27 +14,20 @@ class WebpackUnusedFilesPlugin {
         const { pattern = defaults.pattern, ignore = defaults.ignore } = options;
         this.options = { pattern, ignore };
 
-        rimraf(filePath(FILE_NAMES.deps), err => (err ? console.log(err) : null));
-        rimraf(filePath(FILE_NAMES.globbed), err => (err ? console.log(err) : null));
+        rimraf(filePath(FILE_NAMES.deps), err => (err ? console.error(err) : null));
+        rimraf(filePath(FILE_NAMES.globbed), err => (err ? console.error(err) : null));
+        rimraf(filePath(FILE_NAMES.unused), err => (err ? console.error(err) : null));
     }
     apply(compiler) {
         const { pattern, ignore } = this.options;
-        const filesToIgnore = ignore
-            .reduce((files, ignorePattern) => {
-                return [...files, ...glob.sync(ignorePattern)];
-            }, [])
-            .reduce(reduceFilesIntoObj, {});
-        const allFiles = glob
-            .sync(pattern, { ignore })
-            .filter(file => !filesToIgnore[file])
-            .reduce(reduceFilesIntoObj, {});
+        const allFiles = glob.sync(pattern, { ignore }).map(filePath);
 
         compiler.plugin('after-emit', (compilation, done) => {
             let fileDeps = [];
             try {
                 fileDeps = JSON.parse(fs.readFileSync(filePath(fileDepsFileName), 'utf8'));
             } catch (e) {}
-            writeArrayToFile(FILE_NAMES.globbed, Object.keys(allFiles));
+            writeArrayToFile(FILE_NAMES.globbed, allFiles);
             writeArrayToFile(FILE_NAMES.deps, [...fileDeps, ...compilation.fileDependencies]);
             done();
         });
