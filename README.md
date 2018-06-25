@@ -4,7 +4,7 @@ Find and remove unused code from your project.
 
 ## Features
 
-This webpack plugin generates 2 JSON files that contain 1) All file dependencies from your project and 2) a list of all files found tht match a glob pattern you provide. Using these 2 files, you can generate a list of files that are unused (not included in a webpack bundle). These files can likely be deleted without affecting the performance of your application.
+This webpack plugin generates JSON files that contain 1) All file dependencies from your project (by entry) and 2) a list of all files found that match a glob pattern you provide. Using these files, another list can be generated that contains all files that are unused by your project (not included in a webpack bundle). These files can likely be deleted without affecting the performance of your application.
 
 Please note that this process relies on webpack's generation of file dependencies, and a glob pattern indicating _where_ files live in your application that you're expecting to be bundled. If there are files that you rely on outside of the webpack process, you should make sure to include those paths in the `ignore` array that can be passed as an option (static files, server-side files etc).
 
@@ -52,7 +52,7 @@ module.exports = {
 
 ## Script Usage
 
-Once the plugin has been added to your webpack config and the webpack process has been run, the 2 lists of files mentioned above should have been generated (webpack-unused-files-plugin-dependencies.json & webpack-unused-files-plugin-globbed-files.json). Now you can run the rmUnusedFiles script, which will calculate the unused files and prompt you for each file to be deleted. At any point you can choose to delete the rest of the files or skip all remaining files
+Once the plugin has been added to your webpack config and the webpack process has been run, the lists of files mentioned above should have been generated: webpack-unused-files-plugin-dependencies-\*.json (one for each entry) and webpack-unused-files-plugin-globbed-files.json. Now you can run the rmUnusedFiles script, which will calculate the unused files and prompt you for each file to be deleted. At any point you can choose to delete the rest of the files or skip all remaining files. Once this step has been run, even if you choose not to delete any files, another json file will be generated that contains all of the files that were determined to be unused (wp-unused-files-plugin-unused-files.json)
 
 ```sh
 # Using yarn
